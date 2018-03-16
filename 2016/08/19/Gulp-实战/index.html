@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="tools," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="By lxl   Gulp 入门教程 + 实战，主要说明目前我们前端组用的 Gulpfile.js里面所包含的插件   使用Gulp 的步骤 安装 nodejs -&amp;gt; 全局安装 Gulp -&amp;gt; 项目安装 Gulp以及 gulp插件 —&amp;gt; 配置gulpfile.js -&amp;gt; 运行任务 这里不想多说 Gulp 安装，详情看 一点| gulp详细入门教程，非常好的教程  注意点 G">
+<meta name="keywords" content="tools">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gulp 实战">
+<meta property="og:url" content="http://yoursite.com/2016/08/19/Gulp-实战/index.html">
+<meta property="og:site_name" content="惰怠">
+<meta property="og:description" content="By lxl   Gulp 入门教程 + 实战，主要说明目前我们前端组用的 Gulpfile.js里面所包含的插件   使用Gulp 的步骤 安装 nodejs -&amp;gt; 全局安装 Gulp -&amp;gt; 项目安装 Gulp以及 gulp插件 —&amp;gt; 配置gulpfile.js -&amp;gt; 运行任务 这里不想多说 Gulp 安装，详情看 一点| gulp详细入门教程，非常好的教程  注意点 G">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/img/main-sell-directory.png">
+<meta property="og:updated_time" content="2018-03-16T01:09:24.443Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gulp 实战">
+<meta name="twitter:description" content="By lxl   Gulp 入门教程 + 实战，主要说明目前我们前端组用的 Gulpfile.js里面所包含的插件   使用Gulp 的步骤 安装 nodejs -&amp;gt; 全局安装 Gulp -&amp;gt; 项目安装 Gulp以及 gulp插件 —&amp;gt; 配置gulpfile.js -&amp;gt; 运行任务 这里不想多说 Gulp 安装，详情看 一点| gulp详细入门教程，非常好的教程  注意点 G">
+<meta name="twitter:image" content="http://yoursite.com/img/main-sell-directory.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/08/19/Gulp-实战/"/>
+
+
+
+
+
+  <title>Gulp 实战 | 惰怠</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">惰怠</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">啊咧，不知道说些什么</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/19/Gulp-实战/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="pawn">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="惰怠">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Gulp 实战</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-19T16:18:26+08:00">
+                2016-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>By lxl</p>
+<hr>
+<blockquote>
+<p><code>Gulp</code> 入门教程 + 实战，主要说明目前我们前端组用的 <code>Gulpfile.js</code>里面所包含的插件</p>
+</blockquote>
+<hr>
+<h2 id="使用Gulp-的步骤"><a href="#使用Gulp-的步骤" class="headerlink" title="使用Gulp 的步骤"></a>使用Gulp 的步骤</h2><ul>
+<li>安装 <code>nodejs</code> -&gt; 全局安装 <code>Gulp</code> -&gt; 项目安装 <code>Gulp</code>以及 <code>gulp</code>插件 —&gt; 配置<code>gulpfile.js</code> -&gt; 运行任务</li>
+<li>这里不想多说 Gulp 安装，详情看 <a href="http://www.ydcss.com/archives/18/comment-page-6" target="_blank" rel="noopener">一点| gulp详细入门教程</a>，非常好的教程</li>
+</ul>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><ul>
+<li><code>Gulpfile</code>文件的文件名貌似就该是 <code>gulpfile.js</code>，不要问我为什么，我也不知道为什么改了其他名字就不行了</li>
+</ul>
+<h3 id="下面是-我们前端组目前比较通用的-gulpfile-js，加个人修改后完成"><a href="#下面是-我们前端组目前比较通用的-gulpfile-js，加个人修改后完成" class="headerlink" title="下面是 我们前端组目前比较通用的  gulpfile.js，加个人修改后完成"></a>下面是 我们前端组目前比较通用的  <code>gulpfile.js</code>，加个人修改后完成</h3><ul>
+<li>以 项目 <code>static-pages/main-sell</code>为例子，打开项目根据目录去看更好理解</li>
+</ul>
+<p><img src="/img/main-sell-directory.png" alt="cut"></p>
+<ul>
+<li>加上了注释和文档,去掉了注释其实不多东西的<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//npm i gulp gulp-less gulp-file-include gulp-sourcemaps less-plugin-autoprefix stream-combiner2 browser-sync http-proxy --save-dev</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);</span><br><span class="line"><span class="keyword">var</span> less = <span class="built_in">require</span>(<span class="string">'gulp-less'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//gulp-file-include：把公用的 header、footer 等引入到页面中，类似java的 include 方法</span></span><br><span class="line"><span class="comment">//文档：https://github.com/coderhaoxin/gulp-file-include</span></span><br><span class="line"><span class="keyword">var</span> fileinclude = <span class="built_in">require</span>(<span class="string">'gulp-file-include'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// sourcemaps：用来调试代码的，比如你压缩了JS，打开Chrome控制台（其他貌似浏览器不支持）就能看到未压缩的代码</span></span><br><span class="line"><span class="comment">// less生成CSS，调试的时候 Chrome会把解析CSS成less，非常方便</span></span><br><span class="line"><span class="comment">//文档：https://www.npmjs.com/package/gulp-sourcemaps</span></span><br><span class="line"><span class="keyword">var</span> sourcemaps = <span class="built_in">require</span>(<span class="string">'gulp-sourcemaps'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// less-plugin-autoprefix：为 less 添加浏览器前缀</span></span><br><span class="line"><span class="comment">// 注意 `last 3 versions`，设为低于3有些属性没有-webkit—前缀，比如 flexbox 布局属性 </span></span><br><span class="line"><span class="comment">// 文档：http://www.ydcss.com/archives/94</span></span><br><span class="line"><span class="keyword">var</span> LessAutoprefix = <span class="built_in">require</span>(<span class="string">'less-plugin-autoprefix'</span>),</span><br><span class="line">    autoprefix = <span class="keyword">new</span> LessAutoprefix(&#123; <span class="attr">browsers</span>: [<span class="string">'last 3 versions'</span>]&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//默认情况下，在 stream中 发生一个错误的话，它会被直接抛出，除非已经有一个时间监听器监听着 error 事件</span></span><br><span class="line"><span class="comment">//这在处理一个比较长的管道操作的时候会显得比较棘手</span></span><br><span class="line"><span class="comment">//通过使用 stream-combiner2 ，你可以将一系列的 stream 合并成一个</span></span><br><span class="line"><span class="comment">//这意味着，你只需要在你的代码中的一个地方添加一个监听器听 error 事件即可</span></span><br><span class="line"><span class="comment">//文档： http://www.gulpjs.com.cn/docs/recipes/combining-streams-to-handle-errors/</span></span><br><span class="line"><span class="comment">//类似的插件还有 plumber 插件</span></span><br><span class="line"><span class="keyword">var</span> combiner = <span class="built_in">require</span>(<span class="string">'stream-combiner2'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 超好用的插件，既可以开启静态服务器、代理服务器，还可以同步所有浏览器操作</span></span><br><span class="line"><span class="comment">// 关键是还可以　remote debug，内置了 weinre</span></span><br><span class="line"><span class="comment">// 但有一个注意点是，打开 remote debug 之前先打开要调试的网页</span></span><br><span class="line"><span class="comment">// http://blog.csdn.net/u012038144/article/details/46641383</span></span><br><span class="line"><span class="keyword">var</span> browserSync = <span class="built_in">require</span>(<span class="string">'browser-sync'</span>).create(),</span><br><span class="line">    reload = browserSync.reload;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代理服务器插件</span></span><br><span class="line"><span class="comment">// https://www.npmjs.com/package/http-proxy</span></span><br><span class="line"><span class="keyword">var</span> httpProxy = <span class="built_in">require</span>(<span class="string">'http-proxy'</span>),</span><br><span class="line">    proxy = httpProxy.createProxyServer(&#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> paths = &#123;</span><br><span class="line">    base: <span class="string">'./'</span>, <span class="comment">// 为当前目录</span></span><br><span class="line">    tplFilter: [<span class="string">'tpl/*.*'</span>], <span class="comment">// '*.*' 匹配tpl文件夹的任何文件/文件夹 </span></span><br><span class="line">    tpl: [<span class="string">'tpl/**'</span>],</span><br><span class="line">    html: [<span class="string">'./*.html'</span>], <span class="comment">// './*.html' 匹配当前目录下的 html文件</span></span><br><span class="line">    less: [<span class="string">'less/**'</span>],</span><br><span class="line">    lessFilter: [<span class="string">'less/**'</span>, <span class="string">'!less/base*'</span>,  <span class="string">'!less/normalize*'</span>, <span class="string">'!less/animate*'</span>, <span class="string">'!less/common/**'</span>, <span class="string">'!less/common*'</span>] </span><br><span class="line">    <span class="comment">//切记别写成 '!less/common'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//开启静态服务器，并设置代理，不要代理就去掉 'middleware' 属性就好</span></span><br><span class="line"><span class="comment">// browser-sync 文档：http://www.browsersync.cn/docs/gulp/</span></span><br><span class="line">gulp.task(<span class="string">'serve-watch'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    browserSync.init(&#123;</span><br><span class="line">        server: &#123;</span><br><span class="line">            baseDir: <span class="string">'./'</span>,     <span class="comment">//Serve files from the current directory with directory listing</span></span><br><span class="line">            directory: <span class="literal">true</span>,</span><br><span class="line">            middleware: [      <span class="comment">//设置中间件，代理</span></span><br><span class="line">                <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">                    <span class="keyword">if</span>(<span class="regexp">/thpcluster/i</span>.test(req.url))&#123;</span><br><span class="line">                          proxy.web(req, res, &#123; <span class="attr">target</span>: <span class="string">'http://192.183.3.91/'</span> &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">                            <span class="built_in">console</span>.log(e);  <span class="comment">//捕获错误，不然 server 会断开</span></span><br><span class="line">                          &#125;);</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span>&#123;</span><br><span class="line">                        next();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">        open: <span class="literal">true</span>, <span class="comment">//开启服务器之后是否自动打开浏览器</span></span><br><span class="line">        reloadDelay: <span class="number">500</span>,  </span><br><span class="line">        <span class="comment">//Time, in milliseconds, to wait before instructing the browser to reload/inject following a file change event</span></span><br><span class="line">    &#125;);</span><br><span class="line">    gulp.watch(paths.less, [<span class="string">'less'</span>]);</span><br><span class="line">    gulp.watch(paths.tpl, [<span class="string">'html'</span>]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">gulp.task(<span class="string">'html'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> combined = combiner.obj([</span><br><span class="line">            gulp.src(paths.tplFilter),</span><br><span class="line">            fileinclude(&#123;</span><br><span class="line">                prefix: <span class="string">'@@'</span>,</span><br><span class="line">                basepath: <span class="string">'@file'</span>, <span class="comment">// @file为当前文件位置，也可以是 @root，表示gulp启动的位置</span></span><br><span class="line">                indent: <span class="literal">true</span>,   <span class="comment">//是否缩进</span></span><br><span class="line">            &#125;),</span><br><span class="line">            gulp.dest(paths.base),</span><br><span class="line">            browserSync.stream(&#123; <span class="attr">once</span>: <span class="literal">true</span> &#125;), <span class="comment">//限制每个 stream 只 重载（reload）一次 </span></span><br><span class="line">        ]);</span><br><span class="line">    combined.on(<span class="string">'error'</span>, <span class="built_in">console</span>.error.bind(<span class="built_in">console</span>));</span><br><span class="line">    <span class="keyword">return</span> combined;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">gulp.task(<span class="string">'less'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> combined = combiner.obj([</span><br><span class="line">            gulp.src(paths.lessFilter),</span><br><span class="line">            sourcemaps.init(),</span><br><span class="line">            less(&#123; <span class="attr">plugins</span>: [autoprefix]&#125;),</span><br><span class="line">            sourcemaps.write(),</span><br><span class="line">            gulp.dest(paths.base + <span class="string">'css'</span>),</span><br><span class="line">            browserSync.stream(&#123; <span class="attr">once</span>: <span class="literal">true</span> &#125;),</span><br><span class="line">        ]);</span><br><span class="line">    combined.on(<span class="string">'error'</span>, <span class="built_in">console</span>.error.bind(<span class="built_in">console</span>));</span><br><span class="line">    <span class="keyword">return</span> combined;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">gulp.task(<span class="string">'default'</span>, [<span class="string">'less'</span>, <span class="string">'html'</span>, <span class="string">'serve-watch'</span>, ]);</span><br><span class="line">gulp.task(<span class="string">'build'</span>, [<span class="string">'less'</span>, <span class="string">'html'</span>]);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tools/" rel="tag"># tools</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/17/Sublime-Text3-插件推荐/" rel="next" title="Sublime Text3 插件推荐">
+                <i class="fa fa-chevron-left"></i> Sublime Text3 插件推荐
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/29/Gulp实战-加强版/" rel="prev" title="Gulp实战-加强版">
+                Gulp实战-加强版 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/avatar.jpg"
+              alt="pawn" />
+          
+            <p class="site-author-name" itemprop="name">pawn</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Gulp-的步骤"><span class="nav-number">1.</span> <span class="nav-text">使用Gulp 的步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注意点"><span class="nav-number">1.1.</span> <span class="nav-text">注意点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面是-我们前端组目前比较通用的-gulpfile-js，加个人修改后完成"><span class="nav-number">1.2.</span> <span class="nav-text">下面是 我们前端组目前比较通用的  gulpfile.js，加个人修改后完成</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pawn</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
